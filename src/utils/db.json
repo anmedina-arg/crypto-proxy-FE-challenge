@@ -4,15 +4,8 @@
       "id": "1",
       "nombre": "Bitcoin",
       "ticker": "BTC",
-      "precioCompra": 40000,
+      "precioCompra": 45000,
       "cantidadComprada": 0.5
-    },
-    {
-      "id": "2",
-      "nombre": "Ethereum",
-      "ticker": "ETH",
-      "precioCompra": 3000,
-      "cantidadComprada": 2
     },
     {
       "id": "b90e",
@@ -27,6 +20,13 @@
       "ticker": "MRC",
       "precioCompra": 5000,
       "cantidadComprada": 5
+    },
+    {
+      "id": "8bcf",
+      "nombre": "andresCoin",
+      "ticker": "AND",
+      "precioCompra": 123,
+      "cantidadComprada": 123
     }
   ],
   "users": [

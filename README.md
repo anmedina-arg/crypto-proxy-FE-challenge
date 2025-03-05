@@ -34,3 +34,42 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+📌 Instrucciones para incluir en el README.md
+Cuando entregues el challenge, puedes agregar algo como esto en el README:
+
+md
+
+# Proyecto Cripto Tracker 🚀
+
+Este proyecto permite gestionar una lista de criptomonedas con operaciones CRUD.
+
+## Instalación 🔧
+
+1. Clonar el repositorio:
+   ```bash
+   git clone https://github.com/tu-usuario/tu-repositorio.git
+   cd tu-repositorio
+   Instalar dependencias:
+   bash
+   ```
+
+npm install
+Levantar el backend falso (JSON Server) 🖥️
+Para simular una API, utilizamos json-server. Asegúrate de tenerlo instalado:
+
+bash
+
+npm install json-server --save-dev
+Luego, ejecuta el siguiente comando para iniciar el servidor de datos en http://localhost:5000:
+
+bash
+
+npm run server
+Levantar el frontend ⚛️
+En otra terminal, inicia la aplicación React:
+
+bash
+
+npm run dev
+¡Listo! Ahora puedes probar la app con un backend simulado. 🎉

@@ -13,7 +13,7 @@ const StyledForm = styled.form`
 
 // Función para obtener la cripto desde la API
 const fetchCrypto = async (id: string) => {
-	const res = await fetch(`/api/cryptos/${id}`);
+	const res = await fetch(`http://localhost:4000/criptos/${id}`);
 	if (!res.ok) throw new Error("Error al cargar la criptoooooooooooo");
 	return res.json();
 };
@@ -22,7 +22,7 @@ const fetchCrypto = async (id: string) => {
 // Función para actualizar la cripto en la API
 const updateCryptoAPI = async (data: { id: string, precioCompra: number, cantidadComprada: number }) => {
 	console.log("data", data);
-	const res = await fetch(`/api/cryptos/${data.id}`, {  // Agregamos el id a la URL
+	const res = await fetch(`http://localhost:4000/criptos/${data.id}`, {  // Agregamos el id a la URL
 		method: "PATCH",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify(data),
@@ -56,7 +56,6 @@ export default function ModifyCripto() {
 	const mutation = useMutation({
 		mutationFn: updateCryptoAPI,
 		onSuccess: (data) => {
-			console.log("dieai", data)
 			setMessage(`Crypto updated successfully: ${JSON.stringify(data)}`);
 		},
 		onError: (error: any) => {

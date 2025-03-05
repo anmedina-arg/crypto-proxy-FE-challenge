@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 
 const fetchCryptos = async () => {
-	const res = await fetch("/api/cryptos");
+	const res = await fetch("http://localhost:4000/criptos");
 	return res.json();
 };
 

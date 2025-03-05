@@ -5,7 +5,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Crypto } from '@/utils/mockCriptos'
 
 const addCrypto = async (newCripto: Crypto) => {
-	const res = await fetch("/api/criptos", {
+	const res = await fetch("http://localhost:4000/criptos", {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify(newCripto),
@@ -32,8 +32,7 @@ export default function AddCrypto() {
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
 		mutation.mutate({
-			nombre, ticker, precioCompra, cantidadComprada,
-			id: 0
+			nombre, ticker, precioCompra, cantidadComprada
 		});
 	};
 

@@ -41,8 +41,7 @@ export default function LineCard({ cripto }: LineCardProps) {
 
 	const queryClient = useQueryClient();
 
-	// Función para eliminar una cripto en json-server
-	const deleteCrypto = async (id: number) => {
+	const deleteCrypto = async (id: string) => { // <-- id ahora es string
 		const res = await fetch(`http://localhost:4000/criptos/${id}`, {
 			method: "DELETE",
 		});
@@ -50,28 +49,26 @@ export default function LineCard({ cripto }: LineCardProps) {
 		if (!res.ok) throw new Error("Error eliminando la cripto");
 	};
 
-	// useMutation para eliminar la cripto
+	// useMutation con el id como string
 	const mutation = useMutation({
 		mutationFn: deleteCrypto,
 		onSuccess: (_, deletedId) => {
-			// Actualizar manualmente la caché
 			queryClient.setQueryData<Crypto[]>(["cryptos"], (oldData) => {
 				if (!oldData) return [];
-				return oldData.filter((cripto) => Number(cripto.id) !== deletedId);
+				return oldData.filter((cripto) => cripto.id !== deletedId); // <-- Comparar como string
 			});
 
-			// Invalidar la consulta para forzar un refetch
 			queryClient.invalidateQueries({ queryKey: ["cryptos"] });
 		},
 	});
 
-	// Función para manejar la eliminación con confirmación
+	// En handleDelete, pasamos el id como string
 	const handleDelete = () => {
 		const isConfirmed = window.confirm(
 			`¿Estás seguro de eliminar ${nombre} (${ticker})?`
 		);
 		if (isConfirmed) {
-			mutation.mutate(Number(id)!); // Aseguramos que id no sea undefined
+			mutation.mutate(id!); // <-- Ya no convertimos a número
 		}
 	};
 

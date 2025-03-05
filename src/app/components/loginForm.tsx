@@ -1,4 +1,5 @@
 'use client'
+import Cookies from 'js-cookie';
 import styled from "styled-components";
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
@@ -10,24 +11,26 @@ const StyledForm = styled.form`
 `;
 
 export default function LoginForm() {
-	const [user, setUser] = useState({
-		username: "",
-		password: "",
-		token: ""
-	});
-
+	const [user, setUser] = useState({ username: "", password: "" });
 	const router = useRouter();
 
 	// Función para hacer la petición al backend
 	const loginUser = async (credentials: { username: string; password: string }) => {
-		const res = await fetch("/api/auth/login", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify(credentials),
-		});
+		const res = await fetch(`http://localhost:4000/users?username=${credentials.username}&password=${credentials.password}`);
+		const data = await res.json();
 
-		if (!res.ok) throw new Error("Invalid credentials");
-		return res.json();
+		if (data.length === 0) throw new Error("Invalid credentials"); // No encontró usuario
+
+		const user = data[0];
+
+		// Guardar en localStorage (una sola vez)
+		localStorage.setItem("user", JSON.stringify(user));
+		localStorage.setItem("token", user.token);
+
+		// Guardar en cookies en lugar de localStorage
+		Cookies.set('auth_token', data.token, { expires: 1, path: '/' });
+
+		return user;
 	};
 
 	// useMutation para manejar el login
@@ -35,16 +38,16 @@ export default function LoginForm() {
 		mutationFn: loginUser,
 		onSuccess: (data) => {
 			console.log("Login exitoso:", data);
-			localStorage.setItem("user", JSON.stringify(data))
-			localStorage.setItem("token", data.token); // Guardamos el token en localStorage
-			setUser((prev) => ({ ...prev, token: data.token })); // Actualizar estado `user`
-			router.push("/crypto"); // Redirigir inmediatamente
+
+			// Redirigir con un pequeño delay para asegurarse de que todo se guarda antes
+			setTimeout(() => {
+				router.replace("/crypto"); // Usa `replace` en vez de `push` para evitar que el usuario vuelva al login
+			}, 1000);
 		},
 		onError: () => {
 			console.error("Usuario o contraseña incorrectos");
 		}
 	});
-
 
 	// Manejar cambios en los inputs
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

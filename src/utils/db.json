@@ -1,0 +1,51 @@
+{
+  "criptos": [
+    {
+      "id": "1",
+      "nombre": "Bitcoin",
+      "ticker": "BTC",
+      "precioCompra": 40000,
+      "cantidadComprada": 0.5
+    },
+    {
+      "id": "2",
+      "nombre": "Ethereum",
+      "ticker": "ETH",
+      "precioCompra": 3000,
+      "cantidadComprada": 2
+    },
+    {
+      "id": "b90e",
+      "nombre": "solana",
+      "ticker": "SOL",
+      "precioCompra": 1500,
+      "cantidadComprada": 1
+    },
+    {
+      "id": "19db",
+      "nombre": "MariaCoin",
+      "ticker": "MRC",
+      "precioCompra": 5000,
+      "cantidadComprada": 5
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "username": "usuario1",
+      "password": "password123",
+      "token": "fake-jwt-token-1"
+    },
+    {
+      "id": "2",
+      "username": "usuario2",
+      "password": "password456",
+      "token": "fake-jwt-token-2"
+    },
+    {
+      "id": "06c2",
+      "username": "catalina",
+      "password": "123"
+    }
+  ]
+}

@@ -15,18 +15,11 @@
       "cantidadComprada": 1
     },
     {
-      "id": "8bcf",
-      "nombre": "andresCoin",
-      "ticker": "AND",
-      "precioCompra": 123,
+      "id": "506c",
+      "nombre": "mariaCoin",
+      "ticker": "MRC",
+      "precioCompra": 123123,
       "cantidadComprada": 123
-    },
-    {
-      "id": "98ac",
-      "nombre": "JuliCoin",
-      "ticker": "JLC",
-      "precioCompra": 321,
-      "cantidadComprada": 321
     }
   ],
   "users": [

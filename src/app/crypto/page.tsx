@@ -35,7 +35,6 @@ export default function Dashboard() {
 			<CryptoList />
 			<Button
 				onClick={() => {
-					console.log("chau")
 					localStorage.removeItem("user");
 					router.push("/");
 				}}

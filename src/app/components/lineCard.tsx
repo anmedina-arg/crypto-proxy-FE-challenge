@@ -52,7 +52,6 @@ export default function LineCard({ cripto }: LineCardProps) {
 				</div>
 				<span>Precio de compra: {precioCompra}</span>
 				<span>Cantidad comprada: {cantidadComprada}</span>
-
 			</CardInfoContainer>
 
 			<CardButtonsContainer>

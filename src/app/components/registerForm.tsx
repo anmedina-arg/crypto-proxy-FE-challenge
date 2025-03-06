@@ -3,13 +3,10 @@ import { useState, FormEvent, ChangeEvent } from "react";
 import { useMutation } from "@tanstack/react-query";
 import styled from "styled-components";
 import { useRouter } from "next/navigation";
-
-// Estilos básicos
-const StyledForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-`;
+import Label from './ui/label';
+import Button from './ui/button';
+import Form from "./ui/form";
+import Input from "./ui/input";
 
 export default function RegisterForm() {
 	const router = useRouter()
@@ -43,19 +40,19 @@ export default function RegisterForm() {
 	};
 
 	return (
-		<StyledForm onSubmit={handleSubmit}>
-			<label htmlFor="username">Username</label>
-			<input id="username" type="text" onChange={handleChange} placeholder="myUsername123" />
+		<Form onSubmit={handleSubmit}>
+			<Label htmlFor="username">Username</Label>
+			<Input id="username" type="text" onChange={handleChange} placeholder="myUsername123" />
 
-			<label htmlFor="password">Password</label>
-			<input id="password" type="password" onChange={handleChange} />
+			<Label htmlFor="password">Password</Label>
+			<Input id="password" type="password" onChange={handleChange} />
 
-			<button type="submit" disabled={mutation.isLoading}>
+			<Button type="submit" disabled={mutation.isLoading}>
 				{mutation.isLoading ? "Registering..." : "Register"}
-			</button>
+			</Button>
 
 			{mutation.isError && <p style={{ color: "red" }}>Error en el registro</p>}
 			{mutation.isSuccess && <p style={{ color: "green" }}>Usuario registrado con éxito</p>}
-		</StyledForm>
+		</Form>
 	);
 }

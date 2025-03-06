@@ -3,6 +3,9 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { User } from "@/utils/mockUsers";
 import CryptoList from "@/app/components/cryptoList";
+import Button from "../components/ui/button";
+import Title from "../components/ui/title";
+import Text from "../components/ui/text";
 
 export default function Dashboard() {
 	const router = useRouter();
@@ -27,17 +30,18 @@ export default function Dashboard() {
 
 	return (
 		<div>
-			<h1>Welcome, {user.username}!</h1>
-			<h2>Mocked Data:</h2>
+			<Title>Welcome, {user.username}!</Title>
+			<Text>Tus cryptos son:</Text>
 			<CryptoList />
-			<button
+			<Button
 				onClick={() => {
+					console.log("chau")
 					localStorage.removeItem("user");
 					router.push("/");
 				}}
 			>
 				Logout
-			</button>
+			</Button>
 		</div>
 	);
 }

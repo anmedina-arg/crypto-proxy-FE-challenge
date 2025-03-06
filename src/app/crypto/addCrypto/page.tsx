@@ -2,7 +2,12 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Crypto } from '@/utils/mockCriptos'
+import { Crypto } from '@/utils/mockCriptos';
+import Form from "../../components/ui/form";
+import Label from "../../components/ui/label";
+import Title from "@/app/components/ui/title";
+import Button from "@/app/components/ui/button";
+import Input from "@/app/components/ui/input";
 
 const addCrypto = async (newCripto: Crypto) => {
 	const res = await fetch("http://localhost:4000/criptos", {
@@ -24,8 +29,8 @@ export default function AddCrypto() {
 	const mutation = useMutation({
 		mutationFn: addCrypto,
 		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ["cryptos"] }); // Refresca la lista
-			router.push("/crypto"); // Redirige al listado
+			queryClient.invalidateQueries({ queryKey: ["cryptos"] });
+			router.push("/crypto");
 		},
 	});
 
@@ -38,14 +43,22 @@ export default function AddCrypto() {
 
 	return (
 		<div>
-			<h1>Agregar Nueva Cripto</h1>
-			<form onSubmit={handleSubmit}>
-				<input type="text" placeholder="Nombre" value={nombre} onChange={(e) => setNombre(e.target.value)} required />
-				<input type="text" placeholder="Ticker" value={ticker} onChange={(e) => setTicker(e.target.value)} required />
-				<input type="number" placeholder="Precio de Compra" value={precioCompra} onChange={(e) => setPrecioCompra(Number(e.target.value))} required />
-				<input type="number" placeholder="Cantidad Comprada" value={cantidadComprada} onChange={(e) => setCantidadComprada(Number(e.target.value))} required />
-				<button type="submit">Guardar</button>
-			</form>
+			<Title>Agrega una nueva Cripto!!</Title>
+			<Form onSubmit={handleSubmit}>
+				<Label htmlFor="cryptoName">Nombre de la crypto</Label>
+				<Input id='cryptoName' type="text" placeholder="Nombre" value={nombre} onChange={(e) => setNombre(e.target.value)} required />
+
+				<Label htmlFor="ticker">Ticker</Label>
+				<Input id='ticker' type="text" placeholder="Ticker" value={ticker} onChange={(e) => setTicker(e.target.value)} required />
+
+				<Label htmlFor="price">Precio de Compra</Label>
+				<Input id='price' type="number" placeholder="Precio de Compra" value={precioCompra} onChange={(e) => setPrecioCompra(Number(e.target.value))} required />
+
+				<Label htmlFor="quantity">Cantidad Comprada</Label>
+				<Input id='quantity' type="number" placeholder="Cantidad Comprada" value={cantidadComprada} onChange={(e) => setCantidadComprada(Number(e.target.value))} required />
+
+				<Button variant='primary' type="submit">Guardar</Button>
+			</Form>
 		</div>
 	);
 }

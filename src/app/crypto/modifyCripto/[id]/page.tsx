@@ -3,26 +3,21 @@ import { useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import styled from "styled-components";
+import Form from "@/app/components/ui/form";
+import Label from "@/app/components/ui/label";
+import Title from "@/app/components/ui/title";
+import Button from "@/app/components/ui/button";
+import Input from "@/app/components/ui/input";
 
-// Styled Component
-const StyledForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-`;
-
-// Función para obtener la cripto desde la API
 const fetchCrypto = async (id: string) => {
 	const res = await fetch(`http://localhost:4000/criptos/${id}`);
-	if (!res.ok) throw new Error("Error al cargar la criptoooooooooooo");
+	if (!res.ok) throw new Error("Error al cargar la cripto");
 	return res.json();
 };
 
 
-// Función para actualizar la cripto en la API
 const updateCryptoAPI = async (data: { id: string, precioCompra: number, cantidadComprada: number }) => {
-	console.log("data", data);
-	const res = await fetch(`http://localhost:4000/criptos/${data.id}`, {  // Agregamos el id a la URL
+	const res = await fetch(`http://localhost:4000/criptos/${data.id}`, {
 		method: "PATCH",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify(data),
@@ -39,20 +34,16 @@ export default function ModifyCripto() {
 	const [precioCompra, setPrecioCompra] = useState<number | string>("");
 	const [cantidadComprada, setCantidadComprada] = useState<number | string>("");
 	const [message, setMessage] = useState<string | null>(null);
-	const { id } = useParams(); // Obtener el ID de la URL
+	const { id } = useParams();
 
-	//Usar React Query para obtener los datos de la cripto
-	const { data, isLoading, error } = useQuery(["crypto", id], () => fetchCrypto(id as string), {
-		enabled: !!id,  // Solo ejecutar si 'id' está disponible
+	const { data } = useQuery(["crypto", id], () => fetchCrypto(id as string), {
+		enabled: !!id,
 		onSuccess: (data) => {
 			setPrecioCompra(data.precioCompra);
 			setCantidadComprada(data.cantidadComprada);
 		},
 	});
 
-	console.log("este", data)
-
-	// Usar React Query para la mutación (actualización de la cripto)
 	const mutation = useMutation({
 		mutationFn: updateCryptoAPI,
 		onSuccess: (data) => {
@@ -66,7 +57,6 @@ export default function ModifyCripto() {
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
 
-		// Validación simple
 		if (!precioCompra || !cantidadComprada) {
 			setMessage("Please fill in all fields.");
 			return;
@@ -84,12 +74,11 @@ export default function ModifyCripto() {
 
 	return (
 		<div>
-			<h2>Modify Crypto</h2>
+			<Title>Modify Crypto</Title>
 
-			{/* Formulario */}
-			<StyledForm onSubmit={handleSubmit}>
-				<label htmlFor="precioCompra">Precio de Compra:</label>
-				<input
+			<Form onSubmit={handleSubmit}>
+				<Label htmlFor="precioCompra">precio de Compra:</Label>
+				<Input
 					id="precioCompra"
 					type="number"
 					value={precioCompra}
@@ -97,8 +86,8 @@ export default function ModifyCripto() {
 					placeholder="Enter Precio de Compra"
 				/>
 
-				<label htmlFor="cantidadComprada">Cantidad Comprada:</label>
-				<input
+				<Label htmlFor="cantidadComprada">antidad Comprada:</Label>
+				<Input
 					id="cantidadComprada"
 					type="number"
 					value={cantidadComprada}
@@ -106,10 +95,9 @@ export default function ModifyCripto() {
 					placeholder="Enter Cantidad Comprada"
 				/>
 
-				<button type="submit" disabled={mutation.isLoading}>Update Crypto</button>
-			</StyledForm>
+				<Button variant='primary' type="submit" disabled={mutation.isLoading}>Update Crypto</Button>
+			</Form>
 
-			{/* Mensaje de estado */}
 			{message && <p>{message}</p>}
 		</div>
 	);

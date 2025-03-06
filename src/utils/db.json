@@ -4,7 +4,7 @@
       "id": "1",
       "nombre": "Bitcoin",
       "ticker": "BTC",
-      "precioCompra": 40000,
+      "precioCompra": 45000,
       "cantidadComprada": 0.5
     },
     {
@@ -20,6 +20,20 @@
       "ticker": "MRC",
       "precioCompra": 123123,
       "cantidadComprada": 123
+    },
+    {
+      "id": "a596",
+      "nombre": "andresCoin",
+      "ticker": "AND",
+      "precioCompra": 12300000,
+      "cantidadComprada": 123
+    },
+    {
+      "id": "54be",
+      "nombre": "juanitoCoin",
+      "ticker": "JTC",
+      "precioCompra": 32,
+      "cantidadComprada": 1
     }
   ],
   "users": [
